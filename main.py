@@ -275,7 +275,7 @@ def process_frame(frame_id, frame, mediapipe_style_pose, width, height):
 
 
 
-def get_pose_list_from_video(video_path, max_frames=None, threads=12, output_json=None):
+def get_pose_list_from_video(video_path, max_frames=None, threads=8, output_json=None):
     start_wall = datetime.now()
     start_time = time.time()
     print(f"Process started at: {start_wall.strftime('%Y-%m-%d %H:%M:%S')}")
