@@ -84,7 +84,9 @@ pip install -e ".[notebooks]"
 ```bash
 pip install scipy transformers addict yapf pycocotools timm mediapipe firebase-admin runpod
 ```
+#### 🔹For Body_25 and Hand model
 
+Check golf_club/OpenPosePyTorch Readme.md
 ---
 
 ## ⚙️ Run the API Server
