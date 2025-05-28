@@ -10,6 +10,18 @@ An advanced golf swing analysis pipeline using **Grounding DINO**, **Segment Any
 
 ---
 
+## 📚 Table of Contents
+- [✅ Minimum Requirements](#-minimum-requirements)
+- [🚀 Installation Guide](#-installation-guide)
+- [⚙️ Run the API Server](#️-run-the-api-server)
+- [📡 API Usage](#-api-usage)
+- [📥 Sample cURL Request](#-sample-curl-request)
+- [📦 Output](#-output)
+- [📄 License](#-license)
+- [🛠️ Troubleshooting](#️-troubleshooting)
+
+---
+
 ## ✅ Minimum Requirements
 
 - OS: Ubuntu or **WSL 2** (Windows)
@@ -29,14 +41,12 @@ git clone https://github.com/affanrasheed/GolfAnalytics.git
 cd GolfAnalytics
 ```
 
----
-
 ### 2. Download Pretrained Weights
 
 #### 🔹 Segment Anything v2 (SAM2)
 
 ```bash
-cd checkpoints
+cd GolfAnalytics/checkpoints
 bash download_ckpts.sh
 ```
 
@@ -46,8 +56,6 @@ bash download_ckpts.sh
 cd ../gdino_checkpoints
 bash download_ckpts.sh
 ```
-
----
 
 ### 3. Set Up Environment
 
@@ -68,25 +76,22 @@ conda activate env_golf_analytics
 conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
 ```
 
----
-
 ### 4. Install Project Dependencies
 
 #### 🔹 Segment Anything v2
 
 ```bash
-cd GolfAnalytics
-pip install -e ".[notebooks]"
+pip install -e .
+# or for dev tools and notebooks
+# pip install -e ".[notebooks]"
 ```
 
-#### 🔹 Grounding DINO and Additional Packages
+#### 🔹 Grounding DINO and Additional Packages 
 
 ```bash
 pip install scipy transformers addict yapf pycocotools timm mediapipe firebase-admin runpod
 ```
-#### 🔹For Body_25 and Hand model
 
-Check golf_club/OpenPosePyTorch Readme.md
 ---
 
 ## ⚙️ Run the API Server
@@ -119,8 +124,8 @@ Accept: application/json
 
 ### 🔸 Form Data
 
-| Key     | Type   | Description        |
-|---------|--------|--------------------|
+| Key     | Type   | Description              |
+|---------|--------|--------------------------|
 | `file1` | File   | Front view video (optional) |
 | `file2` | File   | Side view video (optional)  |
 
@@ -128,13 +133,13 @@ Accept: application/json
 
 ## 🧠 System Behavior
 
-| Scenario              | Behavior                               |
-|-----------------------|----------------------------------------|
-| Both `file1` & `file2`| Runs `golf_swing_analysis`             |
-| Only `file1`          | Runs `golf_swing_analys_front`         |
-| Only `file2`          | Runs `golf_swing_analys_side`          |
-| Invalid landmarks     | Returns: `"Landmarks are not visible"` |
-| Valid input           | Returns `.zip` with results & report   |
+| Scenario              | Behavior                                  |
+|-----------------------|-------------------------------------------|
+| Both `file1` & `file2`| Runs `golf_swing_analysis`                |
+| Only `file1`          | Runs `golf_swing_analysis_front`          |
+| Only `file2`          | Runs `golf_swing_analysis_side`           |
+| Invalid landmarks     | Returns: `"Landmarks are not visible"`    |
+| Valid input           | Returns `.zip` with results & report      |
 
 ---
 
@@ -146,13 +151,11 @@ curl --location 'http://0.0.0.0:8001/upload/' --header 'accept: application/json
 
 ---
 
-## 📦 Output
+## 📦 Output (.zip file includes)
 
-Returns a `.zip` file containing:
-
-- 🎥 Annotated result videos  
-- 🖼️ Extracted frames  
-- 📊 Swing analysis report  
+- 🎥 `annotated_front.mp4`, `annotated_side.mp4` – Result videos  
+- 🖼️ `frame_001.jpg`, ... – Extracted key frames  
+- 📊 `report.pdf` – Swing performance report  
 
 ---
 
@@ -161,3 +164,16 @@ Returns a `.zip` file containing:
 This project is licensed under the [MIT License](LICENSE).
 
 ---
+
+## 🛠️ Troubleshooting
+
+- **Issue:** `CUDA not available`  
+  **Solution:** Ensure your GPU drivers and CUDA toolkit match PyTorch requirements.
+
+- **Issue:** Landmark detection failed  
+  **Solution:** Make sure the golfer's body is clearly visible and well-lit in the video.
+
+---
+
+For Body_25 and Hand keypoint models, refer to:  
+[`golf_club/OpenPosePyTorch`](golf_club/OpenPosePyTorch)
