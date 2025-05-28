@@ -159,12 +159,6 @@ curl --location 'http://0.0.0.0:8001/upload/' --header 'accept: application/json
 
 ---
 
-## 📄 License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
-
 ## 🛠️ Troubleshooting
 
 - **Issue:** `CUDA not available`  
@@ -177,3 +171,15 @@ This project is licensed under the [MIT License](LICENSE).
 
 For Body_25 and Hand keypoint models, refer to:  
 [`golf_club/OpenPosePyTorch`](golf_club/OpenPosePyTorch)
+
+
+---
+
+**For Body_25 and Hand keypoint models, refer to:**  
+[`golf_club/OpenPosePyTorch`](golf_club/OpenPosePyTorch)
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
