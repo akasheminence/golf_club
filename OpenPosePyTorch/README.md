@@ -51,6 +51,12 @@ body25 models:
 
 `*.pth` and `*.pt` files are pytorch model, you could also download caffemodel file if you want to use caffe as backend.
 
+
+hand models:
+* [google drive](https://drive.google.com/drive/folders/1JsvI4M4ZTg98fmnCZLFM-3TeovnCRElG?usp=sharing)
+
+`*.pth` and `*.pt` files are pytorch model, you could also download caffemodel file if you want to use caffe as backend.
+
 Download the pytorch models and put them in a directory named `model` in the project root directory
 
 #### Run the Demo
