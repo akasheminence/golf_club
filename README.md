@@ -55,34 +55,91 @@ DataLoader
 ```
 pip install scipy transformers addict yapf pycocotools timm mediapipe firebase-admin runpod
 ```
-## Input Request
-1. Parameters
-    1. `input_video` [It should be a firebase storage url for input video, required parameter]
-    2. `shot_type` [It can be back or side represent shot type, required parameter]
-    3. `firestore_collection` [Firestore collection name where processed output flags along with processed video url to be stored, optional parameter]
-    4. `firebase_cred` [Firebase service account json file path, optional parameter] 
-    5. `firebase_bucket` [Firebase storage database address, optional parameter]
-    6. `firebase_storage_location` [Firebase storage database location where video will be stored, optional parameter]
-    7. `firestore_doc_id` [Firestore location where flag and other url will be stored, optional parameter]
+Run the Fast API: 
+ 
+ bash 
+python api_app.py 
 
+ This will start the server on http://0.0.0.0:8001 (or as configured). 
+ 
 
-2. Sample Request
-curl -X POST http://api/runsync 
-    -H "Content-Type: application/json" 
-    -d '{"input": 
-                {"input_video": "gs://",
-                "shot_type": "back",
-                "firestore_collection":"videos2",
-                "firebase_cred","cred.json",
-                "firebase_bucket",".appspot.com",
-                "firebase_storage_location":"user1/v1",
-                "firestore_doc_id":"user_v1"}}'
+ 
 
-## Testing
-1. Testing endpoint
-Create test_input.json file as provided. Change the inputs accordingly and run the command below
-```
-python main.py
+📡 API Endpoint 
+
+URL: 
+
+http://0.0.0.0:8001/upload/ 
+
+ 
+
+Method: POST 
+
+Headers: 
+
+Accept: application/json 
+
+ 
+
+Form Data: 
+
+file1=@"/path/to/front_video.MOV"  # Optional: Front view 
+
+file2=@"/path/to/side_video.MOV"   # Optional: Side view 
+
+ 
+
+Shape 
+
+🧠 System Behavior 
+
+Scenario 
+
+Behavior 
+
+Both file1 and file2 
+
+Runs full golf_swing_analysis 
+
+Only file1 
+
+Runs golf_swing_analys_front 
+
+Only file2 
+
+Runs golf_swing_analys_side 
+
+Blurry or bad landmarks 
+
+Returns error: "Landmarks are not visible" 
+
+Valid input 
+
+Returns link to download .zip file with: 
+
+ 
+
+→ Result videos, extracted frames, and swing analysis report. 
+
+Shape 
+
+📥 Sample cURL Request 
+
+curl --location 'http://0.0.0.0:8001/upload/' \ 
+
+--header 'accept: application/json' \ 
+
+--form 'file1=@"/home/webexpert/Downloads/may_swing_front_2.MOV"' \ 
+
+--form 'file2=@"/home/webexpert/Downloads/may_swing_side_2.MOV"' 
+
+ 
+
+Shape 
+
+ 
+
+ 
 ```
 
 
